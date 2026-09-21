@@ -74,9 +74,125 @@ h3,
 p {
     margin: 0;
 }
-body {
-    margin: 0;
-    font-family: var(--font-family);
-    color: var(--color-text-primary);
-    background-color: var(--color-bg-page);
+
+/* Header */
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: 20px 40px;
+}
+
+.header__logo {
+    display: flex;
+    justify-self: start;
+    width: 100px;
+}
+
+.header__logo-img {
+    width: 100px;
+    height: 60px;
+}
+
+.header__logo-img--dark {
+    display: none;
+}
+
+[data-theme="dark"] .header__logo-img--light {
+    display: none;
+}
+
+[data-theme="dark"] .header__logo-img--dark {
+    display: block;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.header__nav-link,
+.header__menu-link {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.header__nav-link:hover,
+.header__menu-link:hover {
+    border-color: currentColor;
+}
+
+.header__actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 20px;
+}
+
+.header__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 72px;
+    width: 72px;
+    height: 40px;
+    padding: 3px;
+    border: 1px solid var(--color-border-primary);
+    border-radius: 100px;
+}
+
+.header__theme-icon {
+    display: block;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.header__theme-icon--sun {
+    background-color: var(--color-text-accent);
+}
+
+.header__theme-icon--moon {
+    background-color: transparent;
+}
+
+[data-theme="dark"] .header__theme-icon--sun {
+    background-color: transparent;
+}
+
+[data-theme="dark"] .header__theme-icon--moon {
+    background-color: var(--color-text-accent);
+}
+
+.header__menu-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header__menu-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.header__burger {
+    display: none;
 }

@@ -13,25 +13,81 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo">Coffee House</a>
+    <header class="header">
+        <a
+            href="index.html"
+            class="header__logo"
+            aria-label="Coffee House — Home"
+        >
+            <img
+                src="assets/icons/logo.svg"
+                alt=""
+                class="header__logo-img header__logo-img--light"
+            >
+            <img
+                src="assets/icons/logo-dark.svg"
+                alt=""
+                class="header__logo-img header__logo-img--dark"
+            >
+        </a>
 
-        <nav>
-            <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
+        <nav class="header__nav" aria-label="Main navigation">
+            <ul class="header__nav-list">
+                <li>
+                    <a href="#favorite" class="header__nav-link">
+                        Favorite coffee
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" class="header__nav-link">About</a>
+                </li>
+                <li>
+                    <a href="#mobile-app" class="header__nav-link">
+                        Mobile app
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="header__nav-link">
+                        Contact us
+                    </a>
+                </li>
             </ul>
         </nav>
-        <button type="button" class="theme-toggle" aria-label="Toggle theme">
-            🌙
-        </button>
+        <div class="header__actions">
+            <button
+                type="button"
+                class="header__theme-toggle"
+                aria-label="Switch to dark theme"
+                aria-pressed="false"
+            >
+                <img
+                    src="assets/icons/sun.svg"
+                    alt=""
+                    class="header__theme-icon header__theme-icon--sun"
+                >
+                <img
+                    src="assets/icons/moon.svg"
+                    alt=""
+                    class="header__theme-icon header__theme-icon--moon"
+                >
+            </button>
         
-        <button type="button" class="burger" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <a href="menu.html" class="header__menu-link">
+                <span>Menu</span>
+                <img
+                    src="assets/icons/coffee-cup.svg"
+                    alt=""
+                    class="header__menu-icon"
+                >
+            </a>
+        </div>
+        <button
+            type="button"
+            class="header__burger"
+            aria-label="Open menu"
+        >
+            <span class="header__burger-line"></span>
+            <span class="header__burger-line"></span>
         </button>
     </header>
 
@@ -39,9 +95,9 @@
         <section id="hero" class="hero">
 
         </section>
-        
+
         <section id="favorite" class="favorite">
-        
+
         </section>
         <section class="gallery">
             <div class="gallery__track">
@@ -50,18 +106,18 @@
                 <div class="gallery__slide"></div>
                 <div class="gallery__slide"></div>
             </div>
-        
+
             <div class="gallery__controls">
                 <button type="button" class="gallery__prev" aria-label="Previous slide">&larr;</button>
                 <button type="button" class="gallery__next" aria-label="Next slide">&rarr;</button>
             </div>
         </section>
         <section id="about" class="about">
-        
+
         </section>
-        
-        <section class="app-promo">
-        
+
+        <section id="mobile-app" class="app-promo">
+
         </section>
 
     </main>
