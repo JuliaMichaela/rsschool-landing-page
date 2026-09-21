@@ -231,6 +231,117 @@ p {
     display: none;
 }
 
+/* App Promo */
+
+.app-promo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1360px;
+    margin-top: 100px;
+    margin-inline: auto;
+}
+
+.app-promo__content {
+    max-width: 630px;
+}
+
+.app-promo__title {
+    margin-bottom: 40px;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 125%;
+    color: var(--color-text-primary);
+}
+
+.app-promo__title-accent {
+    font-style: italic;
+    color: var(--color-text-accent);
+}
+
+.app-promo__text {
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    color: var(--color-text-primary);
+}
+
+.app-promo__buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.app-promo__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    width: 200px;
+    height: 64px;
+    padding-inline: 20px;
+    border: 1px solid var(--color-border-inverse);
+    border-radius: 100px;
+    color: var(--color-text-primary);
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-promo__button:hover {
+    background-color: var(--color-bg-container);
+    color: var(--color-text-inverse);
+}
+
+.app-promo__button-icon {
+    display: block;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+.app-promo__button-icon--app-store {
+    mask-image: url("../assets/icons/app-store.svg");
+    -webkit-mask-image: url("../assets/icons/app-store.svg");
+}
+
+.app-promo__button-icon--google-play {
+    mask-image: url("../assets/icons/google-play.svg");
+    -webkit-mask-image: url("../assets/icons/google-play.svg");
+}
+
+.app-promo__button-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-promo__button-text small {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 140%;
+}
+
+.app-promo__button-text strong {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+.app-promo__image-wrapper {
+    width: min(630px, 100%);
+}
+
+.app-promo__image {
+    width: 100%;
+    height: auto;
+}
+
 /* About */
 
 .about {
@@ -448,6 +559,12 @@ p {
 
     .about__image-wrapper--desktop-only {
         display: none;
+    }
+
+    .app-promo {
+        flex-direction: column;
+        gap: 100px;
+        padding-inline: 40px;
     }
 }
 
@@ -680,5 +797,24 @@ p {
 
     .about__title {
         font-size: 32px;
+    }
+
+    .app-promo {
+        gap: 40px;
+        padding-inline: 16px;
+    }
+
+    .app-promo__title {
+        font-size: 32px;
+        line-height: 125%;
+    }
+
+    .app-promo__buttons {
+        flex-direction: column;
+    }
+
+    .app-promo__image-wrapper {
+        width: min(348px, 100%);
+        margin-inline: auto;
     }
 }
