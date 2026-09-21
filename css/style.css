@@ -321,7 +321,7 @@ p {
 
 .menu__grid {
     display: grid;
-    grid-template-columns: repeat(4, 310px);
+    grid-template-columns: repeat(auto-fit, 310px);
     justify-content: center;
     gap: 40px;
     margin-bottom: 40px;
@@ -902,12 +902,6 @@ a.footer__contact-item:hover {
     .menu__catalog {
         width: calc(100% - 80px);
         margin-inline: auto;
-    }
-
-    .menu__grid {
-        grid-template-columns: repeat(2, 310px);
-        justify-content: center;
-        gap: 40px;
     }
 
     .menu__grid-item--extra {
