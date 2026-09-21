@@ -1,0 +1,82 @@
+:root {
+    --font-family: "Inter", sans-serif;
+
+    --color-text-primary: #403F3D;
+    --color-text-inverse: #E1D4C9;
+    --color-text-accent: #B0907A;
+
+    --color-bg-page: #E1D4C9;
+    --color-bg-container: #665F55;
+    --color-overlay: rgba(64, 63, 61, 0.8);
+
+    --color-border-primary: #C1B6AD;
+    --color-border-inverse: #665F55;
+}
+
+[data-theme="dark"] {
+    --color-text-primary: #E1D4C9;
+    --color-text-inverse: #E1D4C9;
+    --color-text-accent: #B0907A;
+
+    --color-bg-page: #292826;
+    --color-bg-container: #403F3D;
+    --color-overlay: rgba(41, 40, 38, 0.8);
+
+    --color-border-primary: #665F55;
+    --color-border-inverse: #C1B6AD;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-page);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button {
+    padding: 0;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-page);
+}
