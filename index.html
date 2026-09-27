@@ -82,11 +82,23 @@
             type="button"
             class="header__burger"
             aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav"
         >
             <span class="header__burger-line"></span>
             <span class="header__burger-line"></span>
         </button>
     </header>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+        <ul class="mobile-nav__list">
+            <li><a href="#favorite" class="mobile-nav__link">Favorite coffee</a></li>
+            <li><a href="#about" class="mobile-nav__link">About</a></li>
+            <li><a href="#mobile-app" class="mobile-nav__link">Mobile app</a></li>
+            <li><a href="#contact" class="mobile-nav__link">Contact us</a></li>
+            <li><a href="menu.html" class="mobile-nav__link">Menu</a></li>
+        </ul>
+    </nav>
 
     <main>
         <section id="hero" class="hero">
@@ -161,7 +173,7 @@
             </div>
 
             <div class="favorite__pagination">
-                <span class="favorite__pagination-item favorite__pagination-item--active"></span>
+                <span class="favorite__pagination-item favorite__pagination-item--active" aria-current="true"></span>
                 <span class="favorite__pagination-item"></span>
                 <span class="favorite__pagination-item"></span>
             </div>
