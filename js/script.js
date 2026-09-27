@@ -202,3 +202,70 @@ function initMenuCatalog() {
 }
 
 document.addEventListener('DOMContentLoaded', initMenuCatalog);
+
+function initMobileNav() {
+    const burger = document.querySelector('.header__burger');
+    const mobileNav = document.getElementById('mobileNav');
+    const header = document.querySelector('.header');
+
+    if (!burger || !mobileNav || !header) {
+        return;
+    }
+
+    function updateHeaderHeightVar() {
+        root.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    }
+
+    function openMobileNav() {
+        updateHeaderHeightVar();
+        mobileNav.classList.add('mobile-nav--open');
+        burger.classList.add('header__burger--active');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close menu');
+        document.body.classList.add('no-scroll');
+    }
+
+    function closeMobileNav() {
+        mobileNav.classList.remove('mobile-nav--open');
+        burger.classList.remove('header__burger--active');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open menu');
+        document.body.classList.remove('no-scroll');
+    }
+
+    function isMobileNavOpen() {
+        return mobileNav.classList.contains('mobile-nav--open');
+    }
+
+    function toggleMobileNav() {
+        if (isMobileNavOpen()) {
+            closeMobileNav();
+        } else {
+            openMobileNav();
+        }
+    }
+
+    burger.addEventListener('click', toggleMobileNav);
+
+    mobileNav.querySelectorAll('a.mobile-nav__link').forEach((link) => {
+        link.addEventListener('click', closeMobileNav);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && isMobileNavOpen()) {
+            closeMobileNav();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        updateHeaderHeightVar();
+
+        if (window.innerWidth > MOBILE_BREAKPOINT && isMobileNavOpen()) {
+            closeMobileNav();
+        }
+    });
+
+    updateHeaderHeightVar();
+}
+
+document.addEventListener('DOMContentLoaded', initMobileNav);
