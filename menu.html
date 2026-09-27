@@ -223,12 +223,10 @@
         hidden
     >
         <div class="modal__window">
-            <div class="modal__image-wrapper">
-                <img src="" alt="" class="modal__image" id="productModalImage">
-            </div>
+            <div class="modal__image-wrapper" id="productModalImageWrapper"></div>
 
             <div class="modal__content">
-                <h2 class="modal__title" id="productModalTitle"></h2>
+                <h2 class="modal__title" id="productModalTitle">Product details</h2>
                 <p class="modal__description" id="productModalDescription"></p>
 
                 <div class="modal__field">
@@ -243,7 +241,7 @@
 
                 <div class="modal__total">
                     <span>Total:</span>
-                    <span id="productModalTotal"></span>
+                    <span id="productModalTotal" aria-live="polite"></span>
                 </div>
 
                 <hr class="modal__divider">

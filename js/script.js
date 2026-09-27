@@ -342,7 +342,11 @@ function initProductModal() {
     }
 
     const closeButton = document.getElementById('productModalClose');
-    const modalImage = document.getElementById('productModalImage');
+    const modalImageWrapper = document.getElementById('productModalImageWrapper');
+    const modalImage = document.createElement('img');
+    modalImage.className = 'modal__image';
+    modalImage.id = 'productModalImage';
+    modalImageWrapper.appendChild(modalImage);
     const modalTitle = document.getElementById('productModalTitle');
     const modalDescription = document.getElementById('productModalDescription');
     const modalSizes = document.getElementById('productModalSizes');
@@ -380,7 +384,7 @@ function initProductModal() {
             button.dataset.sizeKey = sizeKey;
             button.setAttribute('aria-pressed', String(isActive));
             button.innerHTML = `
-                <span class="modal__option-key">${sizeKey.toUpperCase()}</span>
+                <span class="modal__option-key" aria-hidden="true">${sizeKey.toUpperCase()}</span>
                 <span>${currentProduct.sizes[sizeKey].size}</span>
             `;
 
@@ -400,7 +404,7 @@ function initProductModal() {
             button.dataset.additiveIndex = String(index);
             button.setAttribute('aria-pressed', String(isActive));
             button.innerHTML = `
-                <span class="modal__option-key">${index + 1}</span>
+                <span class="modal__option-key" aria-hidden="true">${index + 1}</span>
                 <span>${additive.name}</span>
             `;
 
@@ -408,20 +412,24 @@ function initProductModal() {
         });
     }
 
-    function selectSize(sizeKey) {
+    function selectSize(sizeKey, button) {
         selectedSizeKey = sizeKey;
-        renderSizes();
+
+        modalSizes.querySelectorAll('.modal__option').forEach((option) => {
+            option.setAttribute('aria-pressed', String(option === button));
+        });
+
         updateTotal();
     }
 
-    function toggleAdditive(index) {
+    function toggleAdditive(index, button) {
         if (selectedAdditiveIndexes.has(index)) {
             selectedAdditiveIndexes.delete(index);
         } else {
             selectedAdditiveIndexes.add(index);
         }
 
-        renderAdditives();
+        button.setAttribute('aria-pressed', String(selectedAdditiveIndexes.has(index)));
         updateTotal();
     }
 
@@ -429,7 +437,7 @@ function initProductModal() {
         const button = event.target.closest('.modal__option');
 
         if (button) {
-            selectSize(button.dataset.sizeKey);
+            selectSize(button.dataset.sizeKey, button);
         }
     });
 
@@ -437,7 +445,7 @@ function initProductModal() {
         const button = event.target.closest('.modal__option');
 
         if (button) {
-            toggleAdditive(Number(button.dataset.additiveIndex));
+            toggleAdditive(Number(button.dataset.additiveIndex), button);
         }
     });
 
@@ -519,9 +527,46 @@ function initProductModal() {
         }
     });
 
+    function getFocusableElements() {
+        const selector = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+        return Array.from(modal.querySelectorAll(selector)).filter(
+            (element) => element.offsetParent !== null
+        );
+    }
+
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !modal.hidden) {
+        if (modal.hidden) {
+            return;
+        }
+
+        if (event.key === 'Escape') {
             closeModal();
+            return;
+        }
+
+        if (event.key !== 'Tab') {
+            return;
+        }
+
+        const focusableElements = getFocusableElements();
+
+        if (focusableElements.length === 0) {
+            return;
+        }
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        const isFocusInsideModal = modal.contains(document.activeElement);
+
+        if (event.shiftKey) {
+            if (!isFocusInsideModal || document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            }
+        } else if (!isFocusInsideModal || document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
         }
     });
 }
