@@ -904,10 +904,6 @@ a.footer__contact-item:hover {
         margin-inline: auto;
     }
 
-    .menu__grid-item--extra {
-        display: none;
-    }
-
     .menu__load-more {
         display: flex;
     }

@@ -99,21 +99,21 @@
             </h1>
 
             <div class="menu__tabs" role="group" aria-label="Menu categories">
-                <button type="button" class="menu__tab menu__tab--active" aria-pressed="true">
+                <button type="button" class="menu__tab menu__tab--active" aria-pressed="true" data-category="coffee">
                     <span class="menu__tab-icon-circle">
                         <img src="assets/icons/coffee.svg" alt="" class="menu__tab-icon">
                     </span>
                     <span>Coffee</span>
                 </button>
 
-                <button type="button" class="menu__tab" aria-pressed="false">
+                <button type="button" class="menu__tab" aria-pressed="false" data-category="tea">
                     <span class="menu__tab-icon-circle">
                         <img src="assets/icons/teapot.svg" alt="" class="menu__tab-icon">
                     </span>
                     <span>Tea</span>
                 </button>
 
-                <button type="button" class="menu__tab" aria-pressed="false">
+                <button type="button" class="menu__tab" aria-pressed="false" data-category="dessert">
                     <span class="menu__tab-icon-circle">
                         <img src="assets/icons/cake.svg" alt="" class="menu__tab-icon">
                     </span>
@@ -121,159 +121,7 @@
                 </button>
             </div>
 
-            <ul class="menu__grid">
-                <li class="menu__grid-item">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-1.jpg"
-                                alt="Irish coffee in a glass with a layer of whipped cream"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Irish coffee</h2>
-                            <p class="product-card__description">
-                                Fragrant black coffee with Jameson Irish whiskey and whipped milk
-                            </p>
-                            <p class="product-card__price">$7.00</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-2.jpg"
-                                alt="Kahlua coffee in a tall glass with steamed milk and foam"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Kahlua coffee</h2>
-                            <p class="product-card__description">
-                                Classic coffee with milk and Kahlua liqueur under a cap of frothed milk
-                            </p>
-                            <p class="product-card__price">$7.00</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-3.jpg"
-                                alt="Honey raf coffee in a footed glass with cookies on the side"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Honey raf</h2>
-                            <p class="product-card__description">
-                                Espresso with frothed milk, cream and aromatic honey
-                            </p>
-                            <p class="product-card__price">$5.50</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-4.jpg"
-                                alt="Iced cappuccino in a tall glass with milk and ice"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Ice cappuccino</h2>
-                            <p class="product-card__description">
-                                Cappuccino with soft thick foam in summer version with ice
-                            </p>
-                            <p class="product-card__price">$5.00</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item menu__grid-item--extra">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-5.jpg"
-                                alt="Espresso in a small glass cup with a moka pot in the background"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Espresso</h2>
-                            <p class="product-card__description">
-                                Classic black coffee
-                            </p>
-                            <p class="product-card__price">$4.50</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item menu__grid-item--extra">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-6.jpg"
-                                alt="Latte in a tall glass with layered milk and coffee"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Latte</h2>
-                            <p class="product-card__description">
-                                Espresso coffee with the addition of steamed milk and dense milk foam
-                            </p>
-                            <p class="product-card__price">$5.50</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item menu__grid-item--extra">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-7.jpg"
-                                alt="Latte macchiato in a glass mug with milk foam"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Latte macchiato</h2>
-                            <p class="product-card__description">
-                                Espresso with frothed milk and chocolate
-                            </p>
-                            <p class="product-card__price">$5.50</p>
-                        </div>
-                    </article>
-                </li>
-
-                <li class="menu__grid-item menu__grid-item--extra">
-                    <article class="product-card">
-                        <div class="product-card__image-wrapper">
-                            <img
-                                src="assets/images/coffee-8.jpg"
-                                alt="Coffee with cognac in a tall glass topped with whipped cream and coffee beans"
-                                class="product-card__image"
-                            >
-                        </div>
-                        <div class="product-card__content">
-                            <h2 class="product-card__title">Coffee with cognac</h2>
-                            <p class="product-card__description">
-                                Fragrant black coffee with cognac and whipped cream
-                            </p>
-                            <p class="product-card__price">$6.50</p>
-                        </div>
-                    </article>
-                </li>
-            </ul>
+            <ul class="menu__grid" id="menuGrid"></ul>
 
             <button type="button" class="menu__load-more" aria-label="Load more products">
                 <span class="menu__load-more-icon" aria-hidden="true"></span>

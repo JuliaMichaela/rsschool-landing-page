@@ -49,3 +49,156 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.addEventListener('click', toggleTheme);
     }
 });
+
+const PRODUCTS_URL = 'products.json';
+const MOBILE_BREAKPOINT = 768;
+const INITIAL_VISIBLE_COUNT = 4;
+
+const IMAGE_EXTENSION_BY_CATEGORY = {
+    coffee: 'jpg',
+    tea: 'png',
+    dessert: 'png',
+};
+
+let allProducts = [];
+let currentCategory = 'coffee';
+let isExpanded = false;
+
+function getProductImage(product, indexInCategory) {
+    const extension = IMAGE_EXTENSION_BY_CATEGORY[product.category];
+
+    return `assets/images/${product.category}-${indexInCategory}.${extension}`;
+}
+
+function getCategoryProducts(category) {
+    return allProducts.filter((product) => product.category === category);
+}
+
+function getVisibleLimit() {
+    return window.innerWidth > MOBILE_BREAKPOINT ? Infinity : INITIAL_VISIBLE_COUNT;
+}
+
+function createProductCard(product, indexInCategory, productIndex) {
+    const listItem = document.createElement('li');
+    listItem.className = 'menu__grid-item';
+
+    listItem.innerHTML = `
+        <article class="product-card" data-product-index="${productIndex}">
+            <div class="product-card__image-wrapper">
+                <img
+                    src="${getProductImage(product, indexInCategory)}"
+                    alt="${product.name}"
+                    class="product-card__image"
+                >
+            </div>
+            <div class="product-card__content">
+                <h2 class="product-card__title">${product.name}</h2>
+                <p class="product-card__description">${product.description}</p>
+                <p class="product-card__price">$${product.price}</p>
+            </div>
+        </article>
+    `;
+
+    return listItem;
+}
+
+function updateVisibility() {
+    const grid = document.getElementById('menuGrid');
+    const loadMoreButton = document.querySelector('.menu__load-more');
+
+    if (!grid || !loadMoreButton) {
+        return;
+    }
+
+    const cards = Array.from(grid.children);
+    const limit = isExpanded ? Infinity : getVisibleLimit();
+
+    cards.forEach((card, index) => {
+        card.hidden = index >= limit;
+    });
+
+    const hasHiddenCards = cards.length > limit;
+    loadMoreButton.style.display = hasHiddenCards ? '' : 'none';
+}
+
+function renderCategory(category) {
+    const grid = document.getElementById('menuGrid');
+
+    if (!grid) {
+        return;
+    }
+
+    const categoryProducts = getCategoryProducts(category);
+
+    grid.innerHTML = '';
+
+    categoryProducts.forEach((product, categoryIndex) => {
+        const productIndex = allProducts.indexOf(product);
+        const card = createProductCard(product, categoryIndex + 1, productIndex);
+
+        grid.appendChild(card);
+    });
+
+    updateVisibility();
+}
+
+function setActiveTab(activeButton) {
+    document.querySelectorAll('.menu__tab').forEach((tab) => {
+        const isActive = tab === activeButton;
+
+        tab.classList.toggle('menu__tab--active', isActive);
+        tab.setAttribute('aria-pressed', String(isActive));
+    });
+}
+
+function handleTabClick(event) {
+    const button = event.currentTarget;
+    const category = button.dataset.category;
+
+    if (category === currentCategory) {
+        return;
+    }
+
+    currentCategory = category;
+    isExpanded = false;
+
+    setActiveTab(button);
+    renderCategory(currentCategory);
+}
+
+function handleLoadMoreClick() {
+    isExpanded = true;
+    updateVisibility();
+}
+
+function initMenuCatalog() {
+    const grid = document.getElementById('menuGrid');
+
+    if (!grid) {
+        return;
+    }
+
+    fetch(PRODUCTS_URL)
+        .then((response) => response.json())
+        .then((products) => {
+            allProducts = products;
+            renderCategory(currentCategory);
+        })
+        .catch((error) => {
+            console.error('Failed to load products:', error);
+        });
+
+    document.querySelectorAll('.menu__tab').forEach((tab) => {
+        tab.addEventListener('click', handleTabClick);
+    });
+
+    const loadMoreButton = document.querySelector('.menu__load-more');
+
+    if (loadMoreButton) {
+        loadMoreButton.addEventListener('click', handleLoadMoreClick);
+    }
+
+    window.addEventListener('resize', updateVisibility);
+}
+
+document.addEventListener('DOMContentLoaded', initMenuCatalog);
