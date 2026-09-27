@@ -1025,8 +1025,10 @@ a.footer__contact-item:hover {
 }
 
 .favorite__slides {
+    position: relative;
     width: 480px;
     max-width: 100%;
+    overflow: hidden;
     justify-self: center;
 }
 
@@ -1039,14 +1041,23 @@ a.footer__contact-item:hover {
 }
 
 .favorite__slide {
-    display: none;
-}
-
-.favorite__slide--active {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.favorite__slide:not(.favorite__slide--active) {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.favorite__slide--active {
+    position: relative;
+    opacity: 1;
 }
 
 .favorite__image {
@@ -1177,16 +1188,8 @@ a.footer__contact-item:hover {
         line-height: 125%;
     }
 
-    .favorite__button {
-        display: none;
-    }
-
     .favorite__image {
         width: min(348px, 100%);
-    }
-
-    .favorite__slider {
-        display: block;
     }
 
     .favorite__slides {
