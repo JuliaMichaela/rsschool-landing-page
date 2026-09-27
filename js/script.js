@@ -83,7 +83,13 @@ function createProductCard(product, indexInCategory, productIndex) {
     listItem.className = 'menu__grid-item';
 
     listItem.innerHTML = `
-        <article class="product-card" data-product-index="${productIndex}">
+        <article
+            class="product-card"
+            data-product-index="${productIndex}"
+            tabindex="0"
+            role="button"
+            aria-label="View details for ${product.name}"
+        >
             <div class="product-card__image-wrapper">
                 <img
                     src="${getProductImage(product, indexInCategory)}"
@@ -326,3 +332,198 @@ function initFavoriteSlider() {
 }
 
 document.addEventListener('DOMContentLoaded', initFavoriteSlider);
+
+function initProductModal() {
+    const modal = document.getElementById('productModal');
+    const grid = document.getElementById('menuGrid');
+
+    if (!modal || !grid) {
+        return;
+    }
+
+    const closeButton = document.getElementById('productModalClose');
+    const modalImage = document.getElementById('productModalImage');
+    const modalTitle = document.getElementById('productModalTitle');
+    const modalDescription = document.getElementById('productModalDescription');
+    const modalSizes = document.getElementById('productModalSizes');
+    const modalAdditives = document.getElementById('productModalAdditives');
+    const modalTotal = document.getElementById('productModalTotal');
+
+    let lastFocusedCard = null;
+    let currentProduct = null;
+    let selectedSizeKey = null;
+    let selectedAdditiveIndexes = new Set();
+
+    function formatPrice(value) {
+        return `$${value.toFixed(2)}`;
+    }
+
+    function updateTotal() {
+        const basePrice = Number(currentProduct.price);
+        const sizeAddPrice = Number(currentProduct.sizes[selectedSizeKey]['add-price']);
+        const additivesPrice = Array.from(selectedAdditiveIndexes).reduce((sum, index) => {
+            return sum + Number(currentProduct.additives[index]['add-price']);
+        }, 0);
+
+        modalTotal.textContent = formatPrice(basePrice + sizeAddPrice + additivesPrice);
+    }
+
+    function renderSizes() {
+        modalSizes.innerHTML = '';
+
+        Object.keys(currentProduct.sizes).forEach((sizeKey) => {
+            const isActive = sizeKey === selectedSizeKey;
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'modal__option';
+            button.dataset.sizeKey = sizeKey;
+            button.setAttribute('aria-pressed', String(isActive));
+            button.innerHTML = `
+                <span class="modal__option-key">${sizeKey.toUpperCase()}</span>
+                <span>${currentProduct.sizes[sizeKey].size}</span>
+            `;
+
+            modalSizes.appendChild(button);
+        });
+    }
+
+    function renderAdditives() {
+        modalAdditives.innerHTML = '';
+
+        currentProduct.additives.forEach((additive, index) => {
+            const isActive = selectedAdditiveIndexes.has(index);
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'modal__option';
+            button.dataset.additiveIndex = String(index);
+            button.setAttribute('aria-pressed', String(isActive));
+            button.innerHTML = `
+                <span class="modal__option-key">${index + 1}</span>
+                <span>${additive.name}</span>
+            `;
+
+            modalAdditives.appendChild(button);
+        });
+    }
+
+    function selectSize(sizeKey) {
+        selectedSizeKey = sizeKey;
+        renderSizes();
+        updateTotal();
+    }
+
+    function toggleAdditive(index) {
+        if (selectedAdditiveIndexes.has(index)) {
+            selectedAdditiveIndexes.delete(index);
+        } else {
+            selectedAdditiveIndexes.add(index);
+        }
+
+        renderAdditives();
+        updateTotal();
+    }
+
+    modalSizes.addEventListener('click', (event) => {
+        const button = event.target.closest('.modal__option');
+
+        if (button) {
+            selectSize(button.dataset.sizeKey);
+        }
+    });
+
+    modalAdditives.addEventListener('click', (event) => {
+        const button = event.target.closest('.modal__option');
+
+        if (button) {
+            toggleAdditive(Number(button.dataset.additiveIndex));
+        }
+    });
+
+    function openModal(product, imageSrc) {
+        currentProduct = product;
+        selectedSizeKey = Object.keys(product.sizes)[0];
+        selectedAdditiveIndexes = new Set();
+
+        modalImage.src = imageSrc;
+        modalImage.alt = product.name;
+        modalTitle.textContent = product.name;
+        modalDescription.textContent = product.description;
+
+        renderSizes();
+        renderAdditives();
+        updateTotal();
+
+        modal.hidden = false;
+        document.body.classList.add('no-scroll');
+
+        const firstSizeButton = modalSizes.querySelector('.modal__option');
+
+        if (firstSizeButton) {
+            firstSizeButton.focus();
+        }
+    }
+
+    function closeModal() {
+        modal.hidden = true;
+        document.body.classList.remove('no-scroll');
+
+        if (lastFocusedCard) {
+            lastFocusedCard.focus();
+        }
+    }
+
+    function openModalForCard(card) {
+        const productIndex = Number(card.dataset.productIndex);
+        const product = allProducts[productIndex];
+
+        if (!product) {
+            return;
+        }
+
+        const cardImage = card.querySelector('.product-card__image');
+
+        lastFocusedCard = card;
+        openModal(product, cardImage ? cardImage.src : '');
+    }
+
+    grid.addEventListener('click', (event) => {
+        const card = event.target.closest('.product-card');
+
+        if (card) {
+            openModalForCard(card);
+        }
+    });
+
+    grid.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
+
+        const card = event.target.closest('.product-card');
+
+        if (!card) {
+            return;
+        }
+
+        event.preventDefault();
+        openModalForCard(card);
+    });
+
+    closeButton.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.hidden) {
+            closeModal();
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initProductModal);
